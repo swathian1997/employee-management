@@ -1,108 +1,206 @@
-<div *ngIf="selectedEmployee" class="edit-form">
-  <h2>Edit Employee</h2>
-  <input type="number" placeholder="Enter ID" [(ngModel)]="selectedEmployee.id">
-  <input type="text" placeholder="Enter Name" [(ngModel)]="selectedEmployee.name">
-  <input type="email" placeholder="Enter Email" [(ngModel)]="selectedEmployee.email">
-  <input type="text" placeholder="Enter Department" [(ngModel)]="selectedEmployee.department">
-  <button mat-raised-button color="primary" (click)="updateEmployee()">
-    Update Employee
-  </button>
-</div>
+<div class="container">
 
-<div class="form-container">
-  <h5>Add Employee</h5>
-  <input
-    type="number"
-    placeholder="Enter ID"
-    [(ngModel)]="newEmployee.id"
-  >
+  <!-- Edit Employee -->
+  <mat-card *ngIf="selectedEmployee" class="edit-form">
 
-  <input
-    type="text"
-    placeholder="Enter Name"
-    [(ngModel)]="newEmployee.name"
-  >
+    <h2>Edit Employee</h2>
 
-  <input
-    type="email"
-    placeholder="Enter Email"
-    [(ngModel)]="newEmployee.email"
-  >
+    <div class="form-row">
 
-  <input
-    type="text"
-    placeholder="Enter Department"
-    [(ngModel)]="newEmployee.department"
-  >
+      <input
+        type="number"
+        placeholder="Enter ID"
+        [(ngModel)]="selectedEmployee.id"
+      >
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="addEmployee()"
-  >
-    Add Employee
-  </button>
+      <input
+        type="text"
+        placeholder="Enter Name"
+        [(ngModel)]="selectedEmployee.name"
+      >
 
-</div>
-<input
-  type="text"
-  placeholder="Search Employee name"
-  [(ngModel)]="searchText"
-  class="search-box"
->
-<h1>Employees List</h1>
+      <input
+        type="email"
+        placeholder="Enter Email"
+        [(ngModel)]="selectedEmployee.email"
+      >
 
-<table mat-table [dataSource]="filteredEmployees" class="mat-elevation-z8">
+      <input
+        type="text"
+        placeholder="Enter Department"
+        [(ngModel)]="selectedEmployee.department"
+      >
 
-  <!-- ID Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>ID</th>
-    <td mat-cell *matCellDef="let emp">
-      {{ emp.id }}
-    </td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let emp">
-      {{ emp.name }}
-    </td>
-  </ng-container>
-
-  <!-- Email Column -->
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let emp">
-      {{ emp.email }}
-    </td>
-  </ng-container>
-
-  <!-- Department Column -->
-  <ng-container matColumnDef="department">
-    <th mat-header-cell *matHeaderCellDef>Department</th>
-    <td mat-cell *matCellDef="let emp">
-      {{ emp.department }}
-    </td>
-  </ng-container>
-
-  <!-- Action Column -->
-  <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef>Action</th>
-    <td mat-cell *matCellDef="let emp">
-      <button mat-raised-button color="primary"
-      (click)="editEmployee(emp)">
-        Edit
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="updatedEmployee()"
+      >
+        Update Employee
       </button>
-       <button mat-raised-button color="warn" 
-       (click)="deleteEmployee(emp.id)">
-        Delete
+
+    </div>
+
+  </mat-card>
+
+
+  <!-- Add Employee -->
+  <mat-card class="form-section">
+
+    <h2>Add Employee</h2>
+
+    <div class="form-row">
+
+      <input
+        type="number"
+        placeholder="Enter ID"
+        [(ngModel)]="newEmployee.id"
+      >
+
+      <input
+        type="text"
+        placeholder="Enter Name"
+        [(ngModel)]="newEmployee.name"
+      >
+
+      <input
+        type="email"
+        placeholder="Enter Email"
+        [(ngModel)]="newEmployee.email"
+      >
+
+      <input
+        type="text"
+        placeholder="Enter Department"
+        [(ngModel)]="newEmployee.department"
+      >
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addEmployee()"
+      >
+        Add Employee
       </button>
-    </td>
-  </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    </div>
 
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </mat-card>
 
-</table>
+
+  <!-- Search -->
+  <div class="search-box">
+
+    <input
+      type="text"
+      placeholder="Search Employee name"
+      [(ngModel)]="searchText"
+    >
+
+  </div>
+
+
+  <!-- Heading -->
+  <h1>Employees List</h1>
+
+
+  <!-- Table -->
+  <table mat-table [dataSource]="filteredEmployees" class="mat-elevation-z8">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+
+      <th mat-header-cell *matHeaderCellDef>
+        ID
+      </th>
+
+      <td mat-cell *matCellDef="let emp">
+        {{ emp.id }}
+      </td>
+
+    </ng-container>
+
+
+    <!-- Name -->
+    <ng-container matColumnDef="name">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Name
+      </th>
+
+      <td mat-cell *matCellDef="let emp">
+        {{ emp.name }}
+      </td>
+
+    </ng-container>
+
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Email
+      </th>
+
+      <td mat-cell *matCellDef="let emp">
+        {{ emp.email }}
+      </td>
+
+    </ng-container>
+
+
+    <!-- Department -->
+    <ng-container matColumnDef="department">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Department
+      </th>
+
+      <td mat-cell *matCellDef="let emp">
+        {{ emp.department }}
+      </td>
+
+    </ng-container>
+
+
+    <!-- Action -->
+    <ng-container matColumnDef="action">
+
+      <th mat-header-cell *matHeaderCellDef>
+        Action
+      </th>
+
+      <td mat-cell *matCellDef="let emp">
+
+        <div class="action-buttons">
+
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="editEmployee(emp)"
+          >
+            Edit
+          </button>
+
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteEmployee(emp.id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</div>

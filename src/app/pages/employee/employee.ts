@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, FormsModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, FormsModule, MatSnackBarModule, MatCardModule],
   templateUrl: './employee.html',
   styleUrls: ['./employee.css']
 })
 export class Employee {
+
+  constructor(private snackBar: MatSnackBar) {}
 
   selectedEmployee: any = null;
   searchText: string = '';
@@ -44,11 +47,29 @@ export class Employee {
     }
   ];
 
-  deleteEmployee(id: number) {
+  deleteEmployee(id: number){
+
+  const confirmDelete = confirm(
+    'Are you sure you want to delete this employee?'
+  );
+
+  if(confirmDelete){
+
     this.employees = this.employees.filter(
       emp => emp.id !== id
     );
+
+    this.snackBar.open(
+      'Employee Deleted Successfully',
+      'Close',
+      {
+        duration: 3000
+      }
+    );
+
   }
+
+}
 
   addEmployee() {
     this.employees = [...this.employees, 
